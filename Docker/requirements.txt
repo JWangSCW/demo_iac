@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+httpx
+jinja2
+python-multipart
+langchain
+openai  # if testing locally with GPT

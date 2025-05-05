@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Scaleway AI Agent</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 40px;
+        }
+
+        input {
+            width: 500px;
+            padding: 8px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+        }
+
+        .copy-btn {
+            margin-top: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Scaleway AI Agent</h1>
+    <form method="post" onsubmit="showLoading()">
+        <input name="prompt" value="{{ prompt }}" placeholder="e.g. create a VPC in fr-par or list my buckets" />
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="loading" style="display:none;">⏳ Running the agent...</p>
+
+    {% if iac_code %}
+    <h2>Result</h2>
+    <pre id="code-output">{{ iac_code }}</pre>
+    <button class="copy-btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+    {% endif %}
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+
+        function copyToClipboard() {
+            const code = document.getElementById("code-output").innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy: " + err);
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>
